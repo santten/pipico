@@ -1,0 +1,10 @@
+Metadata-Version: 2.1
+Name: micropython-framebuf
+Version: 0.1
+Summary: Implementation of "framebuf" module (using SDL2) for the "unix" port of MicroPython. (Experimental)
+Home-page: https://github.com/pfalcon/micropython-lib
+Author: Paul Sokolovsky
+Author-email: micropython-lib@googlegroups.com
+License: MIT
+Requires-Dist: micropython-usdl2
+

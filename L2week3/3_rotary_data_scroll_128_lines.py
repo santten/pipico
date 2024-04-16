@@ -30,8 +30,7 @@ position = 8
 
 def display_text(dir, position):
     if dir == 1: ## show value on last line when scrolling down
-        formattedindexvalue = "0" * (3 - len(str(position))) + str(position)
-        text = f"[{formattedindexvalue}] {str(list[position])}"
+        text = f"{str(list[position])} [{str(position)}]"
         oled.scroll(0, -line_height)
         oled.fill_rect(0, OLED_HEIGHT - line_height, OLED_WIDTH, line_height, 0)
         oled.text(text, 0, OLED_HEIGHT - line_height)

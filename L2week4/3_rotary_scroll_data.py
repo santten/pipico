@@ -93,6 +93,7 @@ def draw_128_values(datalist, position, offset, scaling_value, text = ''):
     oled.show()
 
 position = 0
+print(f"Press SW1 on the device to read 360 values from {filename}")
 
 def execute(mode):
     global position
@@ -108,8 +109,8 @@ def execute(mode):
         oled.text(filename, 1, line_height * 5, 1)
         oled.show()
     if mode == "sw0_pressed":
-        print("sw0 pressed, offset:", offset)
         text = f"OFFSET: {offset}"
+        print(f"SW0 PRESSED, adjusting OFFSET: {offset}")
         oled.show()
         if rot.fifo.has_data():
             direction = rot.fifo.get()
@@ -120,8 +121,8 @@ def execute(mode):
         draw_128_values(datalist, position, offset, scaling_value, text)
         device_mode = "normal"
     if mode == "sw2_pressed":
-        print("sw2 pressed, scaling:", scaling_value)
         text = f"SCALING: {scaling_value + 33}"
+        print(f"SW2 PRESSED, adjusting SCALING: {scaling_value + 33}")
         if rot.fifo.has_data():
             direction = rot.fifo.get()
             if direction == -1:
@@ -146,7 +147,7 @@ def execute(mode):
             if line % 5 == 0:
                 datalist.append(data.get())
                 if len(datalist) > 0:
-                    print(len(datalist), line, datalist[-1])
+                    print(f"DATA #{len(datalist)} ADDED from the file's LINE {line}: value {datalist[-1]}")
         global plottedmax, plottedmin
         plottedmax = max(datalist)
         plottedmin = min(datalist)
@@ -162,12 +163,15 @@ def execute(mode):
                     position -= scrollstepsize
                 else:
                     position = 1
+                print(f"ROTARY knob turned LEFT, POSITION: {position}")
+                
             if direction == 1:
                 if position < maxposition:
                     position += scrollstepsize
                 else:
                     position = maxposition
-            print(direction, position)
+                print(f"ROTARY knob turned RIGHT, POSITION: {position}")
+                
         
 
 
